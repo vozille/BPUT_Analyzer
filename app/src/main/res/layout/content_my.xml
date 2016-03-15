@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="vozille.myapplication.MyActivity"
+    tools:showIn="@layout/activity_my">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/compute_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="vozille.myapplication.MyActivity"
+        tools:showIn="@layout/activity_my">
+        <TextView
+            android:id="@+id/inputRollHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/header_bgcolor"
+            android:textColor="@color/header_fgcolor"
+            android:textSize="20sp"
+            android:text="@string/roll"/>
+
+        <EditText
+            android:id="@+id/inputRoll"
+            android:layout_below="@+id/inputRollHeader"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textSize="30sp"
+            android:inputType="phone"
+            android:background="#45000000"
+            android:textColor="@color/header_fgcolor" />
+
+
+        <Button
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/send_button"
+            android:background="#b30006"
+            android:textColor="@color/header_fgcolor"
+            android:onClick="senddata"
+            android:id="@+id/button_send"
+            android:layout_below="@+id/inputRoll"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:visibility="invisible"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/button_send"
+            android:id="@+id/button_disp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/view_btn"
+            android:background="#009F6B"
+            android:textColor="@color/header_fgcolor"
+            android:onClick="view_result"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/button_disp"
+            android:id="@+id/warn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:background="#45000000"
+            android:textColor="@color/header_fgcolor"
+            android:text="Do not press back button when computing.\nPress home button instead to go back to doing other things.\nYou will be notified later when the task is completed"/>
+
+    </RelativeLayout>
+</ScrollView>

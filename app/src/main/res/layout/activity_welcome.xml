@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/wel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="vozille.myapplication.welcome">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="230sp"
+            android:layout_height="wrap_content"
+            android:text="Help"
+            android:onClick="help"
+            android:id="@+id/aboutapp"
+            android:background="#8b0489"
+            android:textColor="@color/header_fgcolor"
+            android:textStyle="bold"
+            android:layout_below="@+id/compare"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:layout_width="230sp"
+            android:layout_height="wrap_content"
+            android:text="COMPARE"
+            android:textColor="@color/header_fgcolor"
+            android:id="@+id/compare"
+            android:onClick="compare_display"
+            android:background="#517cda"
+            android:textStyle="bold"
+            android:layout_below="@+id/history"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentStart="true" />
+
+
+        <Button
+            android:background="#11a38d"
+            android:layout_width="230sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/header_fgcolor"
+            android:onClick="rankings"
+            android:text="Rank Lists"
+            android:enabled="true"
+            android:id="@+id/rankbutton"
+            android:textStyle="bold"
+            android:layout_marginTop="65dp"
+            android:layout_below="@+id/wel2"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:background="#008125"
+            android:layout_width="230sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/header_fgcolor"
+            android:onClick="caliberate"
+            android:text="@string/caliberate"
+            android:enabled="true"
+            android:id="@+id/caliberate"
+            android:textStyle="bold"
+            android:layout_below="@+id/rankbutton"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:background="#c20010"
+            android:layout_width="230sp"
+            android:textColor="@color/header_fgcolor"
+            android:layout_height="wrap_content"
+            android:onClick="enter_request"
+            android:text="@string/enter_button"
+            android:enabled="true"
+            android:id="@+id/button3"
+            android:textStyle="bold"
+            android:layout_below="@+id/caliberate"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:background="#c27904"
+            android:layout_width="230sp"
+            android:layout_height="wrap_content"
+            android:text="@string/History"
+            android:textColor="@color/header_fgcolor"
+            android:id="@+id/history"
+            android:textStyle="bold"
+            android:onClick="enter_history"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/button3"
+            android:layout_alignStart="@+id/caliberate" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/end_note"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/aboutapp"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:id="@+id/wel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\nWelcome\n"
+            android:background="#a11515"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/header_fgcolor"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/wel2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Click on the items below to proceed"
+            android:background="#544545"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/header_fgcolor"
+            android:layout_below="@+id/wel1"/>
+    </RelativeLayout>
+</ScrollView>

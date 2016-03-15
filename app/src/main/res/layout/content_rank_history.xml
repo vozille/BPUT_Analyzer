@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="vozille.myapplication.rank_history"
+    tools:showIn="@layout/activity_rank_history">
+    <LinearLayout
+        android:id="@+id/ranklisthistory"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#065591"
+            android:text="Rank-list History"
+            android:textColor="@color/header_fgcolor"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#8c8f91"
+            android:text="Click on the ranklist to view"
+            android:textColor="@color/header_fgcolor"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+</ScrollView>

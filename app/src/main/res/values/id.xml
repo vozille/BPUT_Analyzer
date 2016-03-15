@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="cgpa_student" />
+    <item type="id" name="sem2" />
+    <item type="id" name="sem3" />
+    <item type="id" name="sem4" />
+    <item type="id" name="sem5" />
+    <item type="id" name="sem6" />
+    <item type="id" name="sem7" />
+    <item type="id" name="sem8" />
+</resources>

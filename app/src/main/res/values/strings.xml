@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">BPUT Analyzer</string>
+    <string name="enter_button">Calculate New</string>
+    <string name="History">History</string>
+    <string name="action_settings">Settings</string>
+    <string name="roll">Enter Roll Number</string>
+    <string name="sem">Enter the id of your semester(s) separated by space</string>
+    <string name="backsem">Enter the id of your back semesters (optional)</string>
+    <string name="hint_roll">1301106106</string>
+    <string name="hint_sem">525 473</string>
+    <string name="hint_backsem">517 602</string>
+    <string name="send_button">Compute</string>
+    <string name="title_activity_dispalay_msg">DispalayMsgActivity</string>
+    <string name="title_activity_aboutapp">aboutapp</string>
+    <string name="about_btn">About</string>
+    <string name="btech_codes">Sem codes for btech</string>
+    <string name="view_btn">Display Results</string>
+    <string name="caliberate">Calibrate</string>
+    <string name="integrate_backs">Integrate back paper results</string>
+    <string name="sgpa">SGPA</string>
+    <string name="credit">Credit</string>
+    <string name="subnames">Subject Name</string>
+    <string name="subcode">Code</string>
+    <string name="subgrade">Grade</string>
+    <string name="resetbtn">RESET</string>
+    <string name="caliberationmidway">Calibrating</string>
+    <string name="caliberationdone">Calibration Completed</string>
+    <string name="compare_header">Click on the names to select names.\nClick on the compare button to compare</string>
+
+    <string-array name="grades">
+        <item> O </item>
+        <item> E </item>
+        <item> A </item>
+        <item> B </item>
+        <item> C </item>
+        <item> D </item>
+        <item> F </item>
+        <item> S </item>
+        <item> M </item>
+    </string-array>
+    <string name="about_app">
+        This app is used to view a students performance by just entering their roll number.\n\nIt can work for all students irrespective of branch and stream, provided they can access their results on results.bput.ac.in\n\n Current Version 1.0x\n\nPlease ensure that you have a fast enough Internet Connection. However once you extract results, you can access all other features offline\n\nCopyright - 2016 Anwesh Mohanty.\n\nMeet me on https://www.facebook.com/vozille\n\n
+    </string>
+    <string name="end_note">
+        BPUT Analyzer Version 1.1x\n
+        © Anwesh Mohanty 2016
+    </string>
+    <string name="QA">
+
+    </string>
+    <string name="title_activity_compare_home">compare_home</string>
+    <string name="title_activity_history">history</string>
+    <string name="title_activity_rank_sem">rank_sem</string>
+    <string name="title_activity_display_rank_list">display_rank_list</string>
+    <string name="title_activity_rank_history">rank_history</string>
+</resources>

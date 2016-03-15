@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#f56870</color>
+    <color name="header_bgcolor">#0087BD</color>
+    <color name="header_fgcolor">#FFFFF0</color>
+    <color name="button_inactive">#acacac</color>
+    <color name="button_active">#198700</color>
+    <color name="button_ready">#086bc7</color>
+    <color name="compute_processing">#e2a704</color>
+    <color name="higher">#17b400</color>
+    <color name="high">#b7fd7d</color>
+    <color name="low">#ff7171</color>
+    <color name="lower">#cc000f</color>
+    <color name="neutral">#ffed50</color>
+    <color name="highlighter">#b8edff</color>
+    <color name="sem_header">#608007</color>
+    <color name="cgpa">#910101</color>
+</resources>
