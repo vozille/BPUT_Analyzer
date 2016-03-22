@@ -94,7 +94,7 @@ public class history extends AppCompatActivity {
         editor.putInt("id", id);
         editor.apply();
         System.out.println(id);
-        Intent action1 = new Intent(this, DispalayMsgActivity.class);
+        Intent action1 = new Intent(this, DisplayGrades.class);
         String name = all_students.get(id).get_details().get(0);
         String roll = all_students.get(id).get_details().get(1);
         String branch = all_students.get(id).get_details().get(2);

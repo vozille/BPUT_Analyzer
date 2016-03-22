@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MyActivity"
+            android:name=".Calculate"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DispalayMsgActivity"
+            android:name=".DisplayGrades"
             android:label="@string/title_activity_dispalay_msg"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"

@@ -79,7 +79,7 @@ public class welcome extends AppCompatActivity {
     }
 
     public void enter_request(View view) throws IOException {
-        Intent action = new Intent(this, MyActivity.class);
+        Intent action = new Intent(this, Calculate.class);
         startActivity(action);
     }
 

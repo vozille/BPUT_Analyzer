@@ -2,28 +2,16 @@ package vozille.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +19,7 @@ import java.util.Map;
 public class compare_home extends AppCompatActivity {
 
     public String filename = "data.json";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +29,13 @@ public class compare_home extends AppCompatActivity {
         int pos1 = intent.getIntExtra("player1", 0);
         int pos2 = intent.getIntExtra("player2", 0);
         ArrayList<student> all_students = new ArrayList<>();
-        try{
+        try {
             Gson gson = new Gson();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(filename)));
-            all_students = gson.fromJson(bufferedReader,new TypeToken<ArrayList<student>>(){}.getType());
+            all_students = gson.fromJson(bufferedReader, new TypeToken<ArrayList<student>>() {
+            }.getType());
             bufferedReader.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             all_students.clear();
             return;
@@ -70,8 +59,8 @@ public class compare_home extends AppCompatActivity {
         t2.setText(all_students.get(pos2).get_details().get(2));
 
         //TODO the counting phase
-        Map<String,Integer> grade1 = new HashMap<>();
-        Map<String,Integer> grade2 = new HashMap<>();
+        Map<String, Integer> grade1 = new HashMap<>();
+        Map<String, Integer> grade2 = new HashMap<>();
         grade1.put("O", 0);
         grade1.put("E", 0);
         grade1.put("A", 0);
@@ -91,19 +80,19 @@ public class compare_home extends AppCompatActivity {
         grade2.put("S", 0);
         grade2.put("M", 0);
         int cnt_1 = 0, cnt_2 = 0;
-        for(ArrayList<String> i : all_students.get(pos1).getSubject_grade()){
-            for(String j : i){
-                grade1.put(j,grade1.get(j) + 1);
+        for (ArrayList<String> i : all_students.get(pos1).getSubject_grade()) {
+            for (String j : i) {
+                grade1.put(j, grade1.get(j) + 1);
                 cnt_1++;
             }
         }
-        for(ArrayList<String> i : all_students.get(pos2).getSubject_grade()){
-            for(String j : i){
-                grade2.put(j,grade2.get(j) + 1);
+        for (ArrayList<String> i : all_students.get(pos2).getSubject_grade()) {
+            for (String j : i) {
+                grade2.put(j, grade2.get(j) + 1);
                 cnt_2++;
             }
         }
-        if(cnt_1 == 0 || cnt_2 == 0){
+        if (cnt_1 == 0 || cnt_2 == 0) {
             return;
         }
         //TODO calculate sgpa since we dont store sgpa
@@ -111,15 +100,15 @@ public class compare_home extends AppCompatActivity {
         //TODO setting the grades
         t1 = (TextView) findViewById(R.id.O_cnt1);
         t2 = (TextView) findViewById(R.id.O_cnt2);
-        t1.setText(Integer.toString(grade1.get("O"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("O"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("O")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("O")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.O_per1);
         t2 = (TextView) findViewById(R.id.O_per2);
-        float p1 = 100*((float) grade1.get("O")) /( (float) cnt_1);
-        float p2 = 100*((float) grade2.get("O")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("O") != 0 || grade2.get("O") != 0) {
+        float p1 = 100 * ((float) grade1.get("O")) / ((float) cnt_1);
+        float p2 = 100 * ((float) grade2.get("O")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("O") != 0 || grade2.get("O") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.higher);
             } else if (Math.abs(p1 - p2) < 0.00001f) {
@@ -132,15 +121,15 @@ public class compare_home extends AppCompatActivity {
         // E
         t1 = (TextView) findViewById(R.id.E_cnt1);
         t2 = (TextView) findViewById(R.id.E_cnt2);
-        t1.setText(Integer.toString(grade1.get("E"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("E"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("E")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("E")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.E_per1);
         t2 = (TextView) findViewById(R.id.E_per2);
-        p1 = 100*((float) grade1.get("E")) /( (float) cnt_1);
-        p2 = 100*((float) grade2.get("E")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("E") != 0 || grade2.get("E") != 0) {
+        p1 = 100 * ((float) grade1.get("E")) / ((float) cnt_1);
+        p2 = 100 * ((float) grade2.get("E")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("E") != 0 || grade2.get("E") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.higher);
 
@@ -155,15 +144,15 @@ public class compare_home extends AppCompatActivity {
         // A
         t1 = (TextView) findViewById(R.id.A_cnt1);
         t2 = (TextView) findViewById(R.id.A_cnt2);
-        t1.setText(Integer.toString(grade1.get("A"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("A"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("A")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("A")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.A_per1);
         t2 = (TextView) findViewById(R.id.A_per2);
-        p1 = 100*((float) grade1.get("A")) /( (float) cnt_1);
-        p2 = 100*((float) grade2.get("A")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("A") != 0 || grade2.get("A") != 0) {
+        p1 = 100 * ((float) grade1.get("A")) / ((float) cnt_1);
+        p2 = 100 * ((float) grade2.get("A")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("A") != 0 || grade2.get("A") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.high);
             } else if (Math.abs(p1 - p2) < 0.00001f) {
@@ -176,15 +165,15 @@ public class compare_home extends AppCompatActivity {
         // B
         t1 = (TextView) findViewById(R.id.B_cnt1);
         t2 = (TextView) findViewById(R.id.B_cnt2);
-        t1.setText(Integer.toString(grade1.get("B"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("B"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("B")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("B")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.B_per1);
         t2 = (TextView) findViewById(R.id.B_per2);
-        p1 = 100*((float) grade1.get("B")) /( (float) cnt_1);
-        p2 = 100*((float) grade2.get("B")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("B") != 0 || grade2.get("B") != 0) {
+        p1 = 100 * ((float) grade1.get("B")) / ((float) cnt_1);
+        p2 = 100 * ((float) grade2.get("B")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("B") != 0 || grade2.get("B") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.neutral);
             } else if (Math.abs(p1 - p2) < 0.00001f) {
@@ -197,15 +186,15 @@ public class compare_home extends AppCompatActivity {
         // C
         t1 = (TextView) findViewById(R.id.C_cnt1);
         t2 = (TextView) findViewById(R.id.C_cnt2);
-        t1.setText(Integer.toString(grade1.get("C"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("C"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("C")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("C")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.C_per1);
         t2 = (TextView) findViewById(R.id.C_per2);
-        p1 = 100*((float) grade1.get("C")) /( (float) cnt_1);
-        p2 = 100*((float) grade2.get("C")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("C") != 0 || grade2.get("C") != 0) {
+        p1 = 100 * ((float) grade1.get("C")) / ((float) cnt_1);
+        p2 = 100 * ((float) grade2.get("C")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("C") != 0 || grade2.get("C") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.low);
             } else if (Math.abs(p1 - p2) < 0.00001f) {
@@ -218,15 +207,15 @@ public class compare_home extends AppCompatActivity {
         // D
         t1 = (TextView) findViewById(R.id.D_cnt1);
         t2 = (TextView) findViewById(R.id.D_cnt2);
-        t1.setText(Integer.toString(grade1.get("D"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("D"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("D")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("D")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.D_per1);
         t2 = (TextView) findViewById(R.id.D_per2);
-        p1 = 100*((float) grade1.get("D")) /( (float) cnt_1);
-        p2 = 100*((float) grade2.get("D")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("D") != 0 || grade2.get("D") != 0) {
+        p1 = 100 * ((float) grade1.get("D")) / ((float) cnt_1);
+        p2 = 100 * ((float) grade2.get("D")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("D") != 0 || grade2.get("D") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.low);
             } else if (Math.abs(p1 - p2) < 0.00001f) {
@@ -239,15 +228,15 @@ public class compare_home extends AppCompatActivity {
         // F
         t1 = (TextView) findViewById(R.id.F_cnt1);
         t2 = (TextView) findViewById(R.id.F_cnt2);
-        t1.setText(Integer.toString(grade1.get("F"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("F"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("F")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("F")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.F_per1);
         t2 = (TextView) findViewById(R.id.F_per2);
-        p1 = 100*((float) grade1.get("F")) /( (float) cnt_1);
-        p2 = 100*((float) grade2.get("F")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("F") != 0 || grade2.get("F") != 0) {
+        p1 = 100 * ((float) grade1.get("F")) / ((float) cnt_1);
+        p2 = 100 * ((float) grade2.get("F")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("F") != 0 || grade2.get("F") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.lower);
             } else if (Math.abs(p1 - p2) < 0.00001f) {
@@ -260,15 +249,15 @@ public class compare_home extends AppCompatActivity {
         // S
         t1 = (TextView) findViewById(R.id.S_cnt1);
         t2 = (TextView) findViewById(R.id.S_cnt2);
-        t1.setText(Integer.toString(grade1.get("S"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("S"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("S")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("S")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.S_per1);
         t2 = (TextView) findViewById(R.id.S_per2);
-        p1 = 100*((float) grade1.get("S")) /( (float) cnt_1);
-        p2 = 100*((float) grade2.get("S")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("S") != 0 || grade2.get("S") != 0) {
+        p1 = 100 * ((float) grade1.get("S")) / ((float) cnt_1);
+        p2 = 100 * ((float) grade2.get("S")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("S") != 0 || grade2.get("S") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.lower);
             } else if (Math.abs(p1 - p2) < 0.00001f) {
@@ -281,15 +270,15 @@ public class compare_home extends AppCompatActivity {
         // M
         t1 = (TextView) findViewById(R.id.M_cnt1);
         t2 = (TextView) findViewById(R.id.M_cnt2);
-        t1.setText(Integer.toString(grade1.get("M"))+"/"+Integer.toString(cnt_1));
-        t2.setText(Integer.toString(grade2.get("M"))+"/"+Integer.toString(cnt_2));
+        t1.setText(Integer.toString(grade1.get("M")) + "/" + Integer.toString(cnt_1));
+        t2.setText(Integer.toString(grade2.get("M")) + "/" + Integer.toString(cnt_2));
         t1 = (TextView) findViewById(R.id.M_per1);
         t2 = (TextView) findViewById(R.id.M_per2);
-        p1 = 100*((float) grade1.get("M")) /( (float) cnt_1);
-        p2 = 100*((float) grade2.get("M")) /( (float) cnt_2);
-        t1.setText(String.format("%.2f",p1) + "%");
-        t2.setText(String.format("%.2f",p2) + "%");
-        if(grade1.get("M") != 0 && grade2.get("M")!= 0){
+        p1 = 100 * ((float) grade1.get("M")) / ((float) cnt_1);
+        p2 = 100 * ((float) grade2.get("M")) / ((float) cnt_2);
+        t1.setText(String.format("%.2f", p1) + "%");
+        t2.setText(String.format("%.2f", p2) + "%");
+        if (grade1.get("M") != 0 && grade2.get("M") != 0) {
             if (p1 > p2) {
                 t1.setBackgroundResource(R.color.lower);
             } else if (Math.abs(p1 - p2) < 0.00001f) {
@@ -300,30 +289,30 @@ public class compare_home extends AppCompatActivity {
             }
         }
         // TODO CGPA SGPA Calc
-        Map<String,Float>val_map = new HashMap<>();
+        Map<String, Float> val_map = new HashMap<>();
         val_map.put("O", 10.0f);
-        val_map.put("E",9f);
-        val_map.put("A",8f);
-        val_map.put("B",7f);
-        val_map.put("C",6f);
-        val_map.put("D",5f);
-        val_map.put("F",2f);
-        val_map.put("S",0f);
+        val_map.put("E", 9f);
+        val_map.put("A", 8f);
+        val_map.put("B", 7f);
+        val_map.put("C", 6f);
+        val_map.put("D", 5f);
+        val_map.put("F", 2f);
+        val_map.put("S", 0f);
         val_map.put("M", 0f);
         ArrayList<ArrayList<String>> subject_grade = all_students.get(pos1).getSubject_grade();
-        ArrayList<ArrayList<String>>subject_credit = all_students.get(pos1).getSubject_credit();
-        ArrayList<ArrayList<String>>subject_code = all_students.get(pos1).getSubject_code();
+        ArrayList<ArrayList<String>> subject_credit = all_students.get(pos1).getSubject_credit();
+        ArrayList<ArrayList<String>> subject_code = all_students.get(pos1).getSubject_code();
         int tot_credit1 = 0;
         float cg1 = 0.0f;
-        ArrayList<Float>sgpa1 = new ArrayList<>();
-        for(int j = 0; j < subject_code.size(); j++){
+        ArrayList<Float> sgpa1 = new ArrayList<>();
+        for (int j = 0; j < subject_code.size(); j++) {
             String credit = subject_code.get(j).get(subject_code.get(j).size() - 1);
             tot_credit1 += Integer.parseInt(credit);
             float mysgpa = 0.0f;
             for (int i = 0; i < subject_grade.get(j).size(); i++) {
                 mysgpa += (val_map.get(subject_grade.get(j).get(i)) * Float.parseFloat(subject_credit.get(j).get(i))) / (Float.parseFloat(credit));
             }
-            cg1 += mysgpa*Float.parseFloat(credit);
+            cg1 += mysgpa * Float.parseFloat(credit);
             sgpa1.add(mysgpa);
         }
         cg1 /= tot_credit1;
@@ -333,15 +322,15 @@ public class compare_home extends AppCompatActivity {
 
         int tot_credit2 = 0;
         float cg2 = 0.0f;
-        ArrayList<Float>sgpa2 = new ArrayList<>();
-        for(int j = 0; j < subject_code.size(); j++){
+        ArrayList<Float> sgpa2 = new ArrayList<>();
+        for (int j = 0; j < subject_code.size(); j++) {
             String credit = subject_code.get(j).get(subject_code.get(j).size() - 1);
             tot_credit2 += Integer.parseInt(credit);
             float mysgpa = 0.0f;
             for (int i = 0; i < subject_grade.get(j).size(); i++) {
                 mysgpa += (val_map.get(subject_grade.get(j).get(i)) * Float.parseFloat(subject_credit.get(j).get(i))) / (Float.parseFloat(credit));
             }
-            cg2 += mysgpa*Float.parseFloat(credit);
+            cg2 += mysgpa * Float.parseFloat(credit);
             sgpa2.add(mysgpa);
         }
         cg2 /= tot_credit2;
@@ -352,37 +341,33 @@ public class compare_home extends AppCompatActivity {
         // CGPA
         t1 = (TextView) findViewById(R.id.cgpa1);
         t2 = (TextView) findViewById(R.id.cgpa2);
-        t1.setText(String.format("%.2f",cg1));
-        t2.setText(String.format("%.2f",cg2));
+        t1.setText(String.format("%.2f", cg1));
+        t2.setText(String.format("%.2f", cg2));
 
-        if(Math.abs(cg1 - cg2) < 0.00001f){
+        if (Math.abs(cg1 - cg2) < 0.00001f) {
             t1.setBackgroundResource(R.color.higher);
             t2.setBackgroundResource(R.color.higher);
-        }
-        else{
-            if(cg1 > cg2){
+        } else {
+            if (cg1 > cg2) {
                 t1.setBackgroundResource(R.color.higher);
-            }
-            else{
+            } else {
                 t2.setBackgroundResource(R.color.higher);
             }
         }
         // SGPA
-        float sh1 = Collections.max(sgpa1),sh2 = Collections.max(sgpa2);
+        float sh1 = Collections.max(sgpa1), sh2 = Collections.max(sgpa2);
         t1 = (TextView) findViewById(R.id.sgpa_h1);
         t2 = (TextView) findViewById(R.id.sgpa_h2);
-        t1.setText(String.format("%.2f",sh1));
-        t2.setText(String.format("%.2f",sh2));
+        t1.setText(String.format("%.2f", sh1));
+        t2.setText(String.format("%.2f", sh2));
 
-        if(Math.abs(sh1 - sh2) < 0.00001f){
+        if (Math.abs(sh1 - sh2) < 0.00001f) {
             t1.setBackgroundResource(R.color.higher);
             t2.setBackgroundResource(R.color.higher);
-        }
-        else{
-            if(sh1 > sh2){
+        } else {
+            if (sh1 > sh2) {
                 t1.setBackgroundResource(R.color.higher);
-            }
-            else{
+            } else {
                 t2.setBackgroundResource(R.color.higher);
             }
         }
@@ -390,18 +375,16 @@ public class compare_home extends AppCompatActivity {
         sh2 = Collections.min(sgpa2);
         t1 = (TextView) findViewById(R.id.sgpa_l1);
         t2 = (TextView) findViewById(R.id.sgpa_l2);
-        t1.setText(String.format("%.2f",sh1));
-        t2.setText(String.format("%.2f",sh2));
+        t1.setText(String.format("%.2f", sh1));
+        t2.setText(String.format("%.2f", sh2));
 
-        if(Math.abs(sh1 - sh2) < 0.00001f){
+        if (Math.abs(sh1 - sh2) < 0.00001f) {
             t1.setBackgroundResource(R.color.lower);
             t2.setBackgroundResource(R.color.lower);
-        }
-        else{
-            if(sh1 > sh2){
+        } else {
+            if (sh1 > sh2) {
                 t2.setBackgroundResource(R.color.lower);
-            }
-            else{
+            } else {
                 t1.setBackgroundResource(R.color.lower);
             }
         }
@@ -409,25 +392,23 @@ public class compare_home extends AppCompatActivity {
         sh2 = sgpa2.get(sgpa2.size() - 1);
         t1 = (TextView) findViewById(R.id.sgpa_r1);
         t2 = (TextView) findViewById(R.id.sgpa_r2);
-        t1.setText(String.format("%.2f",sh1));
-        t2.setText(String.format("%.2f",sh2));
+        t1.setText(String.format("%.2f", sh1));
+        t2.setText(String.format("%.2f", sh2));
 
-        if(Math.abs(sh1 - sh2) < 0.00001f){
+        if (Math.abs(sh1 - sh2) < 0.00001f) {
             t1.setBackgroundResource(R.color.higher);
             t2.setBackgroundResource(R.color.higher);
-        }
-        else{
-            if(sh1 > sh2){
+        } else {
+            if (sh1 > sh2) {
                 t1.setBackgroundResource(R.color.higher);
-            }
-            else{
+            } else {
                 t2.setBackgroundResource(R.color.higher);
             }
         }
         ArrayList<Entry> sgchart1 = new ArrayList<>();
         ArrayList<String> sp1 = new ArrayList<>();
-        for(int i = 0; i < sgpa1.size(); i++){
-            sp1.add(String.format("%d",i + 1));
+        for (int i = 0; i < sgpa1.size(); i++) {
+            sp1.add(String.format("%d", i + 1));
             sgchart1.add(new Entry(sgpa1.get(i), i + 1));
         }
 //        LinearLayout r = (LinearLayout) findViewById(R.id.chart);

@@ -7,11 +7,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,24 +27,48 @@ public class rank_history extends AppCompatActivity {
     public AlertDialog.Builder clear;
     public ArrayList<ArrayList<rank_list>> rank_lists = new ArrayList<>();
 
-    class rank_list{
+    class rank_list {
         String name = "";
         String sgpa = "";
         String branch = "";
         String semester = "";
-        public void setName(String n){ this.name = n;}
-        public void setSgpa(String n){ this.sgpa = n;}
-        public void setBranch(String n){this.branch = n;}
-        public void setSemester(String n){this.semester = n;}
-        public String getName(){ return this.name;}
-        public String getSgpa(){ return this.sgpa;}
-        public String getBranch(){ return this.branch;}
-        public String getSemester(){return this.semester;}
+
+        public void setName(String n) {
+            this.name = n;
+        }
+
+        public void setSgpa(String n) {
+            this.sgpa = n;
+        }
+
+        public void setBranch(String n) {
+            this.branch = n;
+        }
+
+        public void setSemester(String n) {
+            this.semester = n;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+
+        public String getSgpa() {
+            return this.sgpa;
+        }
+
+        public String getBranch() {
+            return this.branch;
+        }
+
+        public String getSemester() {
+            return this.semester;
+        }
     }
 
     @Override
-    public void onBackPressed(){
-        Intent intent = new Intent(this,rank_sem.class);
+    public void onBackPressed() {
+        Intent intent = new Intent(this, rank_sem.class);
         startActivity(intent);
     }
 
@@ -90,18 +111,18 @@ public class rank_history extends AppCompatActivity {
             e.printStackTrace();
         }
         LinearLayout body = (LinearLayout) findViewById(R.id.ranklisthistory);
-        for(int i = 0; i < rank_lists.size(); i++){
+        for (int i = 0; i < rank_lists.size(); i++) {
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            if(i%2 == 1)
+            if (i % 2 == 1)
                 row.setBackgroundColor(Color.parseColor("#d6ebf2"));
             TextView c = new TextView(this);
             row.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             c.setTypeface(Typeface.DEFAULT_BOLD);
             c.setTextSize(20);
             c.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            c.setText("Ranklist - " + String.format("%d",i+1)+ "\n" + rank_lists.get(i).get(0).getBranch() +": Semester-> " + rank_lists.get(i).get(0).getSemester() + "\n"  +rank_lists.get(i).get(0).getName() + "...");
+            c.setText("Ranklist - " + String.format("%d", i + 1) + "\n" + rank_lists.get(i).get(0).getBranch() + ": Semester-> " + rank_lists.get(i).get(0).getSemester() + "\n" + rank_lists.get(i).get(0).getName() + "...");
             c.setId(i);
             final int id = i;
             c.setOnClickListener(new View.OnClickListener() {
@@ -127,29 +148,29 @@ public class rank_history extends AppCompatActivity {
         body.addView(b);
     }
 
-    public void show_ranklist(int id){
-        Intent action1 = new Intent(this,display_rank_list.class);
+    public void show_ranklist(int id) {
+        Intent action1 = new Intent(this, display_rank_list.class);
         action1.putExtra("idcode", id);
         startActivity(action1);
     }
 
-    public void ranklist_clear_dialog(){
+    public void ranklist_clear_dialog() {
         AlertDialog a = clear.create();
         a.show();
     }
-    public void clear_rankhistory(){
+
+    public void clear_rankhistory() {
         rank_lists.clear();
-        try{
+        try {
             Gson gson = new Gson();
             String json = gson.toJson(rank_lists);
             FileOutputStream fileOutputStream = openFileOutput(filename3, MODE_PRIVATE);
             fileOutputStream.write(json.getBytes());
             fileOutputStream.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        Intent intent = new Intent(this,rank_history.class);
+        Intent intent = new Intent(this, rank_history.class);
         startActivity(intent);
     }
 }
