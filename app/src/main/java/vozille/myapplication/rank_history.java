@@ -25,46 +25,9 @@ import java.util.ArrayList;
 public class rank_history extends AppCompatActivity {
     public String filename3 = "ranklists.json";
     public AlertDialog.Builder clear;
+    public AlertDialog.Builder delete;
     public ArrayList<ArrayList<rank_list>> rank_lists = new ArrayList<>();
-
-    class rank_list {
-        String name = "";
-        String sgpa = "";
-        String branch = "";
-        String semester = "";
-
-        public void setName(String n) {
-            this.name = n;
-        }
-
-        public void setSgpa(String n) {
-            this.sgpa = n;
-        }
-
-        public void setBranch(String n) {
-            this.branch = n;
-        }
-
-        public void setSemester(String n) {
-            this.semester = n;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public String getSgpa() {
-            return this.sgpa;
-        }
-
-        public String getBranch() {
-            return this.branch;
-        }
-
-        public String getSemester() {
-            return this.semester;
-        }
-    }
+    public int delpos;
 
     @Override
     public void onBackPressed() {
@@ -74,6 +37,9 @@ public class rank_history extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        delpos = 0;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -95,6 +61,23 @@ public class rank_history extends AppCompatActivity {
             }
         });
         clear.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+
+        delete = new AlertDialog.Builder(this);
+        delete.setMessage("This Ranklist will be deleted.\nAre you sure ?");
+        delete.setCancelable(true);
+        delete.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                delete_data();
+            }
+        });
+        delete.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -131,6 +114,14 @@ public class rank_history extends AppCompatActivity {
                     show_ranklist(id);
                 }
             });
+            c.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    delpos = id;
+                    create_delete_dialog();
+                    return true;
+                }
+            });
             row.addView(c);
             body.addView(row);
         }
@@ -148,6 +139,11 @@ public class rank_history extends AppCompatActivity {
         body.addView(b);
     }
 
+    public void create_delete_dialog() {
+        AlertDialog a = delete.create();
+        a.show();
+    }
+
     public void show_ranklist(int id) {
         Intent action1 = new Intent(this, display_rank_list.class);
         action1.putExtra("idcode", id);
@@ -157,6 +153,30 @@ public class rank_history extends AppCompatActivity {
     public void ranklist_clear_dialog() {
         AlertDialog a = clear.create();
         a.show();
+    }
+
+    public void delete_data() {
+        try {
+            Gson gson = new Gson();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(filename3)));
+            rank_lists = gson.fromJson(bufferedReader, new TypeToken<ArrayList<ArrayList<rank_list>>>() {
+            }.getType());
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        rank_lists.remove(delpos);
+        try {
+            Gson gson = new Gson();
+            String json = gson.toJson(rank_lists);
+            FileOutputStream fileOutputStream = openFileOutput(filename3, MODE_PRIVATE);
+            fileOutputStream.write(json.getBytes());
+            fileOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Intent intent = new Intent(this, rank_history.class);
+        startActivity(intent);
     }
 
     public void clear_rankhistory() {
@@ -172,5 +192,44 @@ public class rank_history extends AppCompatActivity {
         }
         Intent intent = new Intent(this, rank_history.class);
         startActivity(intent);
+    }
+
+    class rank_list {
+        String name = "";
+        String sgpa = "";
+        String branch = "";
+        String semester = "";
+
+        public String getName() {
+            return this.name;
+        }
+
+        public void setName(String n) {
+            this.name = n;
+        }
+
+        public String getSgpa() {
+            return this.sgpa;
+        }
+
+        public void setSgpa(String n) {
+            this.sgpa = n;
+        }
+
+        public String getBranch() {
+            return this.branch;
+        }
+
+        public void setBranch(String n) {
+            this.branch = n;
+        }
+
+        public String getSemester() {
+            return this.semester;
+        }
+
+        public void setSemester(String n) {
+            this.semester = n;
+        }
     }
 }

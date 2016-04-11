@@ -12,143 +12,143 @@
     tools:context="vozille.myapplication.aboutapp"
     tools:showIn="@layout/activity_aboutapp">
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#990800"
-            android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
-            android:textSize="30sp"
+            android:text="BPUT Analyzer"
             android:textAlignment="center"
-            android:text="BPUT Analyzer"/>
+            android:textColor="@color/header_fgcolor"
+            android:textSize="30sp"
+            android:textStyle="bold" />
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:autoLink="all"
+            android:text="@string/about_app"
             android:textColorLink="#34689c"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about_app"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#004887"
+            android:text="Using the app for the first time"
             android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Using the app for the first time"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="\n1. Click on Calibrate button and wait till you receive an alert on the main page. You only need to click on this button when using the app for the first time or when new results have been declared.\n\n2.Click on Calculate new button. Enter the roll and click on compute. You can wait there or go back to doing other things on the phone.\n\n3. You will receive a notification after the computation has ended. You can click on the notification to view the result directly. In case of failure, you have to open the app again and see the reason for the failure. The time taken to get notified is directly propotional to your internet speed.\n\n4. Congrats, you are now in the result page. You can modify the grade in each subject and see how your cg and sg are affected. The total cg is displayed at the end. However any changes you make wont be saved. You can reset the performance by clicking on any of the reset buttons provided.\n\n5. You can compare the performance for any two people whose results you have extracted using the Compare button.\n\n6. The history buttton provides quick and easy access to all the results you have calculated.\n"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="\n1. Click on Calibrate button and wait till you receive an alert on the main page. You only need to click on this button when using the app for the first time or when new results have been declared.\n\n2.Click on Calculate new button. Enter the roll and click on compute. You can wait there or go back to doing other things on the phone.\n\n3. You will receive a notification after the computation has ended. You can click on the notification to view the result directly. In case of failure, you have to open the app again and see the reason for the failure. The time taken to get notified is directly propotional to your internet speed.\n\n4. Congrats, you are now in the result page. You can modify the grade in each subject and see how your cg and sg are affected. The total cg is displayed at the end. However any changes you make wont be saved. You can reset the performance by clicking on any of the reset buttons provided.\n\n5. You can compare the performance for any two people whose results you have extracted using the Compare button.\n\n6. The history buttton provides quick and easy access to all the results you have calculated.\n"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#004887"
+            android:text="Using the Rank-List Feature"
             android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Using the Rank-List Feature"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="\nThe rank list basically displays the list of students of a branch with their sgpa sorted in descending order for a particular semester.\n\nSelect a roll number from the dropdown menu. A roll number will only be available if the individual results of the roll have been calculated via Calculate New option and it is present in the History section of the app(i.e. it hasnt been deleted) . If the roll number is in History section and is still not available, it means that the data of the roll is incomaptible with the new version. It can be solved by just recalaulating results for that roll.\n\nThen select the semester for which you want to generate the ranks.\nDepending on the branch of the person with that roll and the semester you selected, you will get the rank-list accordingly.\n\n For example, if you want to find the ranklist for your branch for say 3rd Semester, follow these steps:\n\nStep 1: You need atleast 1 roll number from your branch available in the Select roll menu. Select any roll number if multiple ones are available.\nThen select the semester (3rd Semester in this case) \n\nStep 2: Click on Generate and wait.You will be notified when the process has completed.\n\nStep 3 : Click on Display to view the results.You can access the results offline in the History button"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="\nThe rank list basically displays the list of students of a branch with their sgpa sorted in descending order for a particular semester.\n\nSelect a roll number from the dropdown menu. A roll number will only be available if it is in the History section of the app. If the roll number is in History section and is still not available, it means that the data of the roll is incomaptible with the new version. It can be solved by just recalaulating results for that roll.\n\nThen select the semester for which you want to generate the ranks.\nDepending on the branch of the person with that roll and the semester you selected, you will get the rank-list accordingly.\n\n For example, if you want to find the ranklist for your branch for say 3rd Semester, follow these steps:\n\nStep 1: You need atleast 1 roll number from your branch available in the Select roll menu. Select any roll number if multiple ones are available.\nThen select the semester (3rd Semester in this case) \n\nStep 2: Click on Generate and wait.You will be notified when the process has completed.\n\nStep 3 : Click on Display to view the results.You can access the results offline in the History button"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#008736"
+            android:text="Features"
             android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
             android:textSize="15sp"
-            android:text="Features"/>
+            android:textStyle="bold" />
         <TextView
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="\n1. Integrates Back semester automatically and displays the sgpa/cgpa\n\n2. Modify your score in any subject(s) and see how your sgpa/cgpa varies accordingly.\n\n3. View the results of your friends by typing their roll numbers.\n\n4. Comapre any two people on various factors like overall CG, highest SGPA, percentage and count of grades.\n\n"/>
+            android:text="\n1. Integrates Back semester automatically and displays the sgpa/cgpa\n\n2. Modify your score in any subject(s) and see how your sgpa/cgpa varies accordingly.\n\n3. View the results of your friends by typing their roll numbers.\n\n4. Comapre any two people on various factors like overall CG, highest SGPA, percentage and count of grades.\n\n"
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#008736"
+            android:text="Some Uses of this app"
             android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
             android:textSize="15sp"
-            android:text="Some Uses of this app"/>
+            android:textStyle="bold" />
         <TextView
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="\n1. View your own results with back papers updated and SG/CG calculated accordingly.\n\n2. In cases of some problems like when rechecking marks aren't updated or lab marks have errors, you can manually set the correct value for them and see what your new SG/CG will be.\n\n3. You can use the compare feature to view your grade distribution from O grade to M grade.\n\n4. Once you have extracted the results, you can access them anytime without any Internet connection.\n"/>
+            android:text="\n1. View your own results with back papers updated and SG/CG calculated accordingly.\n\n2. In cases of some problems like when rechecking marks aren't updated or lab marks have errors, you can manually set the correct value for them and see what your new SG/CG will be.\n\n3. You can use the compare feature to view your grade distribution from O grade to M grade.\n\n4. Once you have extracted the results, you can access them anytime without any Internet connection.\n"
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#008736"
+            android:text="About the Calibrate button"
             android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
             android:textSize="15sp"
-            android:text="About the Calibrate button"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="\nThe calibrate button is used to specify the upper limit of the algorithm which generates the results.\nSo you need to use it only when new results come out and on using the app for the first time.\n"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="\nThe calibrate button is used to specify the upper limit of the algorithm which generates the results.\nSo you need to use it only when new results come out and on using the app for the first time.\n"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#008736"
+            android:text="About the Calculate New button"
             android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
             android:textSize="15sp"
-            android:text="About the Calculate New button"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="\nThe Calculate New button is used to get the result of a particular roll number\n"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="\nThe Calculate New button is used to get the result of a particular roll number\n"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#008736"
+            android:text="About the Compare button"
             android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
             android:textSize="15sp"
-            android:text="About the Compare button"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="\nUsed to compare the performance of any two students on basis of certain parameters\n"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="\nUsed to compare the performance of any two students on basis of certain parameters\n"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#008736"
+            android:text="FAQ"
             android:textColor="@color/header_fgcolor"
-            android:textStyle="bold"
             android:textSize="15sp"
-            android:text="FAQ"/>
+            android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold"
             android:text="Q. My result is incomplete. What shoud I do ?\n
 A. Ensure you have clicked on the calibrate button once after new results have been declared. The second reason for this is slow Internet connection. Just recalculate when Internet and server are a bit faster and it'll be fine.\n\n
 Q. My rechecking results aren't properly displayed. How can I sort it ?\n
 A. This happens when the main site hasn't updated your rechecking results. A easy workaround to this is to manually set the grade for those subjects and view your modified CG/SG. Unfortunately you cannot compare your performance with others with those new values.\n\n
 Q. Some of my subjects aren't displayed.\n
-A. If subjects arent displayed in the main site, there is no workaround to this.Else this situation will almost never arise. If it does, just recalculate.\n\n"/>
+A. If subjects arent displayed in the main site, there is no workaround to this.Else this situation will almost never arise. If it does, just recalculate.\n\n"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

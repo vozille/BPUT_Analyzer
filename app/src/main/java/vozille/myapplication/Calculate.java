@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,23 +38,6 @@ import java.util.Vector;
 
 
 public class Calculate extends AppCompatActivity {
-    class student_key{
-        String roll = "";
-        String branch = "";
-        ArrayList<String> codes = new ArrayList<>();
-        public void setRoll(String n){ this.roll = n;}
-        public void setCode(String n){ this.codes.add(n); }
-        public void setBranch(String n){this.branch = n;}
-        public String getRoll(){
-            return this.roll;
-        }
-        public String getBranch(){
-            return this.branch;
-        }
-        public ArrayList<String> getCodes(){
-            return this.codes;
-        }
-    }
     public String filename = "data.json";
     public String filename2 = "keys.json";
     public ArrayList<ArrayList<String>> subject_grade = new ArrayList<ArrayList<String>>();
@@ -70,9 +54,9 @@ public class Calculate extends AppCompatActivity {
     public boolean flag = false;
     public boolean flag2 = false;
     public boolean f3 = false;
+    public ProgressBar progressBar;
+    public int count, limit;
     student_key student_key1 = new student_key();
-
-    // FIXME: 25-02-2016 this just joins the query string for scraping
 
     public ArrayList<String> format_data(Document page, String first, String last, String code) {
         ArrayList<String> s = new ArrayList<String>();
@@ -90,6 +74,7 @@ public class Calculate extends AppCompatActivity {
         return s;
     }
 
+    // FIXME: 25-02-2016 this just joins the query string for scraping
 
     // FIXME: 25-02-2016 this deletes the back paper slots after merging
     public void delete_after_merge(ArrayList<String> arr, ArrayList<ArrayList<String>> res) {
@@ -104,8 +89,6 @@ public class Calculate extends AppCompatActivity {
             }
         }
     }
-
-    // FIXME: 25-02-2016 this merges back results with main results
 
     public void manage_backs() {
         try {
@@ -157,10 +140,15 @@ public class Calculate extends AppCompatActivity {
         }
     }
 
+    // FIXME: 25-02-2016 this merges back results with main results
 
     // FIXME: 25-02-2016 the main window
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        count = 0;
+        limit = 0;
+
         f3 = false;
         super.onCreate(savedInstanceState);
         flag = false;
@@ -170,6 +158,9 @@ public class Calculate extends AppCompatActivity {
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Get Results ");
         arr2 = new ArrayList<>();
+
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_calc);
+        progressBar.setProgress(0);
 
         display = (Button) findViewById(R.id.button_disp);
         compute = (Button) findViewById(R.id.button_send);
@@ -356,8 +347,6 @@ public class Calculate extends AppCompatActivity {
         notificationManager.notify(0, notify1.build());
     }
 
-    // FIXME: 25-02-2016 sorts data
-
     public void sort_data() {
 
         try{
@@ -412,7 +401,7 @@ public class Calculate extends AppCompatActivity {
         arr2.add(student_key1);
     }
 
-    // FIXME: 25-02-2016 this sends the processed data to the display
+    // FIXME: 25-02-2016 sorts data
 
     public void senddata(View view) throws IOException {
         subject_name.clear();
@@ -428,10 +417,11 @@ public class Calculate extends AppCompatActivity {
         new WebScraper(roll, sems, backsems).execute();
     }
 
+    // FIXME: 25-02-2016 this sends the processed data to the display
+
     public void go_back() {
         super.onBackPressed();
     }
-    // FIXME: 20-02-2016 result
 
     public void view_result(View view) {
 //        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -547,10 +537,41 @@ public class Calculate extends AppCompatActivity {
         }
         startActivity(action1);
     }
+    // FIXME: 20-02-2016 result
 
+    class student_key {
+        String roll = "";
+        String branch = "";
+        ArrayList<String> codes = new ArrayList<>();
+
+        public void setCode(String n) {
+            this.codes.add(n);
+        }
+
+        public String getRoll() {
+            return this.roll;
+        }
+
+        public void setRoll(String n) {
+            this.roll = n;
+        }
+
+        public String getBranch() {
+            return this.branch;
+        }
+
+        public void setBranch(String n) {
+            this.branch = n;
+        }
+
+        public ArrayList<String> getCodes() {
+            return this.codes;
+        }
+    }
 
     private class WebScraper extends AsyncTask<Void, Void, Void> {
         private String roll;
+        private int count;
         private Vector<String> sem = new Vector<>();
         //TODO add backsem useage
         private Vector<String> backsem = new Vector<>();
@@ -620,6 +641,7 @@ public class Calculate extends AppCompatActivity {
                     System.out.println(MAX_LIMIT);
                     return null;
                 }
+                limit = MAX_LIMIT;
                 System.out.println(MAX_LIMIT);
                 while (ctr <= MAX_LIMIT) {
                     urlthread thread = new urlthread(ctr, ctr + 30, this.roll);
@@ -648,6 +670,7 @@ public class Calculate extends AppCompatActivity {
         }
 
         protected void onPostExecute(Void res) {
+            progressBar.setProgress(100);
             flag2 = false;
             System.out.println(subject_grade.size());
             if (flag) {
@@ -660,6 +683,7 @@ public class Calculate extends AppCompatActivity {
                 return;
             }
             if (subject_grade.size() == 0) {
+
                 set_fail_notif();
                 Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 v.vibrate(1000);
@@ -695,6 +719,9 @@ public class Calculate extends AppCompatActivity {
             for (int i = this.sta; i < this.end; i++) {
                 String a = Integer.toString(i);
                 String b = this.roll;
+                count++;
+                int increment = Integer.parseInt(String.format("%.0f", (float) (count * 100) / (float) limit));
+                progressBar.setProgress(increment);
 
                 try {
                     URL addr = new URL("http://results.bput.ac.in/" + a + "_RES/" + b + ".html");
@@ -702,6 +729,7 @@ public class Calculate extends AppCompatActivity {
                     conn.setRequestMethod("HEAD");
                     int res = conn.getResponseCode();
                     conn.disconnect();
+
                     if (res == 200) {
                         Document page = Jsoup.connect("http://results.bput.ac.in/" + a + "_RES/" + b + ".html").get();
 

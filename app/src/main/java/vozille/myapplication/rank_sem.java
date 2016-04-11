@@ -1,39 +1,29 @@
 package vozille.myapplication;
 
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -43,6 +33,7 @@ import java.util.Comparator;
 
 public class rank_sem extends AppCompatActivity {
 
+    public final ArrayList<ArrayList<String>> codes = new ArrayList<>();
     public String filename2 = "keys.json";
     public String filename3 = "ranklists.json";
     public float cnt = 0;
@@ -52,29 +43,16 @@ public class rank_sem extends AppCompatActivity {
     public int lowlim,le_lowlimit;
     public String sem_code = "";
     public String branch_1 = "";
-    public final ArrayList<ArrayList<String>> codes =  new ArrayList<>();
-    ArrayList<String> rolls = new ArrayList<>();
     public ArrayList<ArrayList<rank_list>> rank_lists = new ArrayList<>();
     public ProgressBar progressBar;
     public AlertDialog.Builder alert_data_error;
     public AlertDialog.Builder alert_stop_execution;
     public AsyncTask scraper;
-
-    class rank_list{
-        String name = "";
-        String sgpa = "";
-        String branch = "";
-        String semester = "";
-        public void setName(String n){ this.name = n;}
-        public void setSgpa(String n){ this.sgpa = n;}
-        public void setBranch(String n){this.branch = n;}
-        public void setSemester(String n){this.semester = n;}
-        public String getName(){ return this.name;}
-        public String getSgpa(){ return this.sgpa;}
-        public String getBranch(){ return this.branch;}
-        public String getSemester(){return this.semester;}
-    }
-
+    public String code;
+    public String code_id = "";
+    ArrayList<String> rolls = new ArrayList<>();
+    ArrayList<student_data> arr;
+    ArrayList<student_key> arr2;
 
     @Override
     public void onBackPressed(){
@@ -89,39 +67,6 @@ public class rank_sem extends AppCompatActivity {
         }
     }
 
-    class student_key{
-        String roll = "";
-        String branch = "";
-        ArrayList<String> codes = new ArrayList<>();
-        public void setRoll(String n){ this.roll = n;}
-        public void setCode(String n){ this.codes.add(n); }
-        public void setBranch(String n){this.branch = n;}
-        public String getRoll(){
-            return this.roll;
-        }
-        public String getBranch(){
-            return this.branch;
-        }
-        public ArrayList<String> getCodes(){
-            return this.codes;
-        }
-    }
-    class student_data
-    {
-        String name = "";
-        String roll = "";
-        String sgpa = "";
-        public void setName(String n){
-            this.name = n;
-        }
-        public void setRoll(String n){ this.roll = n; }
-        public void setSgpa(String n){ this.sgpa = n; }
-
-        public String getName(){return this.name;}
-        public String getRoll(){return this.roll;}
-        public String getSgpa(){return this.sgpa;}
-
-    }
     public ArrayList<String> format_data(Document page, String first,String last) {
         ArrayList<String> s = new ArrayList<String>();
         int i = 1;
@@ -136,10 +81,7 @@ public class rank_sem extends AppCompatActivity {
         s.remove(1);
         return s;
     }
-    ArrayList<student_data> arr;
-    ArrayList<student_key>arr2;
-    public String code;
-    public String code_id = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -263,6 +205,8 @@ public class rank_sem extends AppCompatActivity {
             lowlim = ((int) (temp / 1000)) * 1000;
             le_lowlimit = lowlim + 120000000;
             System.out.println(lowlim);
+            code = arr2.get(p1.getSelectedItemPosition()).getCodes().get(p2.getSelectedItemPosition());
+            code_id = String.format("%d", p2.getSelectedItemPosition() + 1);
             scraper = new  WebScraper().execute();
         }
         else{
@@ -302,10 +246,108 @@ public class rank_sem extends AppCompatActivity {
         startActivity(intent);
     }
 
+    class rank_list {
+        String name = "";
+        String sgpa = "";
+        String branch = "";
+        String semester = "";
+
+        public String getName() {
+            return this.name;
+        }
+
+        public void setName(String n) {
+            this.name = n;
+        }
+
+        public String getSgpa() {
+            return this.sgpa;
+        }
+
+        public void setSgpa(String n) {
+            this.sgpa = n;
+        }
+
+        public String getBranch() {
+            return this.branch;
+        }
+
+        public void setBranch(String n) {
+            this.branch = n;
+        }
+
+        public String getSemester() {
+            return this.semester;
+        }
+
+        public void setSemester(String n) {
+            this.semester = n;
+        }
+    }
+
+    class student_key {
+        String roll = "";
+        String branch = "";
+        ArrayList<String> codes = new ArrayList<>();
+
+        public void setCode(String n) {
+            this.codes.add(n);
+        }
+
+        public String getRoll() {
+            return this.roll;
+        }
+
+        public void setRoll(String n) {
+            this.roll = n;
+        }
+
+        public String getBranch() {
+            return this.branch;
+        }
+
+        public void setBranch(String n) {
+            this.branch = n;
+        }
+
+        public ArrayList<String> getCodes() {
+            return this.codes;
+        }
+    }
+
+    class student_data {
+        String name = "";
+        String roll = "";
+        String sgpa = "";
+
+        public String getName() {
+            return this.name;
+        }
+
+        public void setName(String n) {
+            this.name = n;
+        }
+
+        public String getRoll() {
+            return this.roll;
+        }
+
+        public void setRoll(String n) {
+            this.roll = n;
+        }
+
+        public String getSgpa() {
+            return this.sgpa;
+        }
+
+        public void setSgpa(String n) {
+            this.sgpa = n;
+        }
+
+    }
+
     private class WebScraper extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... params) {
-            code = arr2.get(p1.getSelectedItemPosition()).getCodes().get(p2.getSelectedItemPosition());
-            code_id = String.format("%d",p2.getSelectedItemPosition() + 1);
             ArrayList<urlthread> u = new ArrayList<>();
             for(int i = lowlim; i < lowlim + 965; i+= 30){
                 urlthread t = new urlthread(i,i+30,code);

@@ -1,19 +1,14 @@
 package vozille.myapplication;
 
-import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,9 +27,14 @@ public class history extends AppCompatActivity {
     public String filename2 = "keys.json";
     public LinearLayout body;
     public AlertDialog.Builder clear;
+    public AlertDialog.Builder delete;
+    public int delpos;
     public ArrayList<student> all_students = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        delpos = -1;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -55,11 +55,30 @@ public class history extends AppCompatActivity {
 
             }
         });
+
+
+        delete = new AlertDialog.Builder(this);
+        delete.setMessage("The record of this person will be deleted.\nAre you sure ?");
+        delete.setCancelable(true);
+        delete.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                delete_data();
+            }
+        });
+        delete.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
         try{
             Gson gson = new Gson();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(filename)));
             all_students = gson.fromJson(bufferedReader,new TypeToken<ArrayList<student>>(){}.getType());
             bufferedReader.close();
+
         }
         catch (Exception e){
             e.printStackTrace();
@@ -86,6 +105,58 @@ public class history extends AppCompatActivity {
     public void create_clear_dialog(){
         AlertDialog a = clear.create();
         a.show();
+    }
+
+    public void create_delete_dialog() {
+        AlertDialog a = delete.create();
+        a.show();
+    }
+
+    public void delete_data() {
+        ArrayList<student> all_students = new ArrayList<>();
+        ArrayList<student_key> arr2 = new ArrayList<>();
+        try {
+            Gson gson = new Gson();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(filename)));
+            all_students = gson.fromJson(bufferedReader, new TypeToken<ArrayList<student>>() {
+            }.getType());
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            all_students.clear();
+        }
+        all_students.remove(delpos);
+        try {
+            Gson gson = new Gson();
+            String json = gson.toJson(all_students);
+            FileOutputStream fileOutputStream = openFileOutput(filename, MODE_PRIVATE);
+            fileOutputStream.write(json.getBytes());
+            fileOutputStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Gson gson = new Gson();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(filename2)));
+            arr2 = gson.fromJson(bufferedReader, new TypeToken<ArrayList<student_key>>() {
+            }.getType());
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        arr2.remove(arr2.size() - delpos - 1);
+        try {
+            Gson gson = new Gson();
+            String json = gson.toJson(arr2);
+            FileOutputStream fileOutputStream = openFileOutput(filename2, MODE_PRIVATE);
+            fileOutputStream.write(json.getBytes());
+            fileOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Intent action = new Intent(this, history.class);
+        startActivity(action);
     }
 
     public void pass_data(int id){
@@ -132,6 +203,14 @@ public class history extends AppCompatActivity {
                 pass_data(pos);
             }
         });
+        t.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                delpos = pos;
+                create_delete_dialog();
+                return true;
+            }
+        });
         body.addView(t);
     }
 
@@ -149,6 +228,7 @@ public class history extends AppCompatActivity {
             all_students.clear();
         }
         all_students.clear();
+
         try{
             Gson gson = new Gson();
             String json = gson.toJson(all_students);
@@ -160,6 +240,12 @@ public class history extends AppCompatActivity {
         catch (Exception e){
             e.printStackTrace();
         }
+
+        /*
+        remove keys
+
+        */
+
         try{
             Gson gson = new Gson();
             String json = gson.toJson(all_students);
@@ -173,11 +259,42 @@ public class history extends AppCompatActivity {
         }
         setContentView(R.layout.activity_history);
     }
+
     @Override
     public void onBackPressed(){
         Intent action = new Intent(this, welcome.class);
         startActivity(action);
         super.onBackPressed();
+    }
+
+    class student_key {
+        String roll = "";
+        String branch = "";
+        ArrayList<String> codes = new ArrayList<>();
+
+        public void setCode(String n) {
+            this.codes.add(n);
+        }
+
+        public String getRoll() {
+            return this.roll;
+        }
+
+        public void setRoll(String n) {
+            this.roll = n;
+        }
+
+        public String getBranch() {
+            return this.branch;
+        }
+
+        public void setBranch(String n) {
+            this.branch = n;
+        }
+
+        public ArrayList<String> getCodes() {
+            return this.codes;
+        }
     }
 
 }

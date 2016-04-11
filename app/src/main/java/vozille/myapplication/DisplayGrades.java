@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -72,6 +74,18 @@ public class DisplayGrades extends AppCompatActivity {
         Intent action = new Intent(this, history.class);
         startActivity(action);
         super.onBackPressed();
+    }
+
+    public void onGradeChanged(String sgpa, String cgpa) {
+        Toast.makeText(this, "New SGPA : " + sgpa + " ||| New CGPA : " + cgpa, Toast.LENGTH_LONG).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+            }
+        }, 2000);
     }
 
     @Override
@@ -408,6 +422,7 @@ public class DisplayGrades extends AppCompatActivity {
                     TextView c = (TextView) findViewById(R.id.cgpa_student);
                     c.setText("CGPA : " + calc_cgpa());
 
+                    onGradeChanged(String.format("%.2f", newsgpa), calc_cgpa());
                 }
             }
 

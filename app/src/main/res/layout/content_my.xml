@@ -3,15 +3,15 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background3"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="vozille.myapplication.MyActivity"
+    tools:context="vozille.myapplication.Calculate"
     tools:showIn="@layout/activity_my">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,56 +31,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/header_bgcolor"
+            android:text="@string/roll"
             android:textColor="@color/header_fgcolor"
-            android:textSize="20sp"
-            android:text="@string/roll"/>
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/inputRoll"
-            android:layout_below="@+id/inputRollHeader"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:textSize="30sp"
-            android:inputType="phone"
+            android:layout_below="@+id/inputRollHeader"
             android:background="#45000000"
-            android:textColor="@color/header_fgcolor" />
+            android:inputType="phone"
+            android:textColor="@color/header_fgcolor"
+            android:textSize="30sp" />
 
 
         <Button
-            android:layout_marginTop="15dp"
+            android:id="@+id/button_send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/send_button"
-            android:background="#b30006"
-            android:textColor="@color/header_fgcolor"
-            android:onClick="senddata"
-            android:id="@+id/button_send"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/inputRoll"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="15dp"
+            android:background="#b30006"
+            android:onClick="senddata"
+            android:text="@string/send_button"
+            android:textColor="@color/header_fgcolor" />
 
         <Button
-            android:visibility="invisible"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/button_send"
             android:id="@+id/button_disp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/view_btn"
+            android:layout_below="@+id/button_send"
+            android:layout_marginTop="5dp"
             android:background="#009F6B"
+            android:onClick="view_result"
+            android:text="@string/view_btn"
             android:textColor="@color/header_fgcolor"
-            android:onClick="view_result"/>
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/progressbar_calc"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_disp"
+            android:layout_margin="7dp" />
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/button_disp"
             android:id="@+id/warn1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textAlignment="center"
+            android:layout_below="@id/progressbar_calc"
+            android:layout_marginTop="10dp"
             android:background="#45000000"
+            android:text="Do not press back button when computing.\nPress home button instead to go back to doing other things.\nYou will be notified later when the task is completed"
+            android:textAlignment="center"
             android:textColor="@color/header_fgcolor"
-            android:text="Do not press back button when computing.\nPress home button instead to go back to doing other things.\nYou will be notified later when the task is completed"/>
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </ScrollView>
